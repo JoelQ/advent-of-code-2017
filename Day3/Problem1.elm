@@ -1,4 +1,4 @@
-module Day2.Problem2 exposing (main)
+module Day3.Problem1 exposing (main)
 
 import Html exposing (..)
 import Html.Events exposing (onInput)
@@ -31,8 +31,8 @@ parseNumber =
     Result.withDefault 0 << String.toInt
 
 
-solve : Int -> Int
-solve position =
+solveNonOne : Int -> Int
+solveNonOne position =
     let
         maxDistance =
             position
@@ -45,9 +45,19 @@ solve position =
             maxDistance // 2
 
         outwardSteps =
-            (position - maxDistance + 1) % maxDistance
+            (position - (inwardSteps - 1)) % maxDistance
     in
-        outwardSteps + inwardSteps
+        inwardSteps + outwardSteps
+
+
+solve : Int -> Int
+solve position =
+    case position of
+        1 ->
+            0
+
+        _ ->
+            solveNonOne position
 
 
 
